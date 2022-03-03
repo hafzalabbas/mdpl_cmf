@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<!--	<t t-extend="Product">-->
+<!--		<t t-jquery=".product-img" t-operation="append">-->
+<!--			<t t-if="widget.wk_is_pack_product(product.id)">-->
+<!--				<div class="product_pack">Pack Product</div>-->
+<!--			</t>-->
+<!--		</t>-->
+<!--	</t>-->
+
+
+
+	<t t-name="ProductItem" t-inherit="point_of_sale.ProductItem" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[@class='product-img']" position="inside">
+            <t t-if="props.product.pack_ok">
+                <div class="product_pack">Pack Product</div>
+            </t>
+        </xpath>
+    </t>
+
+</templates>

@@ -1,0 +1,3 @@
+table #table2 tr:first-child {
+  border: none;
+}

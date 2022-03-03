@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" inherit_id="l10n_in_pos.template" xml:space="preserve">
+<!--    <t t-name="OrderReceiptClientInfo" t-inherit="l10n_in_pos.OrderReceipt" t-inherit-mode="extension" owl="1">-->
+
+<!--&lt;!&ndash;        <xpath expr="//t[@t-if='receipt.client and env.pos.company.country and env.pos.company.country.code == 'IN'']" position="replace">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div align="center" style="font-size:12px;font-family:Calibri !important;">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div><t t-esc="receipt.client.name" /></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <br />&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </xpath>&ndash;&gt;-->
+<!--    </t>-->
+</templates>

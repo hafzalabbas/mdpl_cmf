@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="product_pack_line_form" model="ir.ui.view">
+        <field name="name">product.pack.line.form</field>
+        <field name="model">product.pack.line</field>
+        <field name="arch" type="xml">
+            <form string="Pack Product Line">
+                <group>
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="offer_price"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_pack_line_tree" model="ir.ui.view">
+        <field name="name">product.pack.line.tree</field>
+        <field name="model">product.pack.line</field>
+        <field name="arch" type="xml">
+            <tree string="Pack Product Lines" editable="bottom">
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="offer_price"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

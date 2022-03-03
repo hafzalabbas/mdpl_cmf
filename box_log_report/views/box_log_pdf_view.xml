@@ -1,0 +1,160 @@
+<odoo>
+    <data>
+        <template id="report_box_log_pdf">
+            <t t-call="web.html_container">
+                <t t-call="box_log_report.print_external_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <strong>
+                                <t t-if="report_type == 'sale'">
+                                Customer :
+                                </t>
+                                <t t-if="report_type == 'purchase'">
+                                Vendor :
+                                </t>
+                                <t t-esc="partner.name"/>
+                                <br/>
+                            </strong>
+                            <t t-if="type == 'range'">
+                                <strong>
+                                    <t t-esc="date_from" t-options="{'widget': 'date'}"/>
+                                    -
+                                    <t t-esc="date_to" t-options="{'widget': 'date'}"/>
+                                </strong>
+                            </t>
+                        </div>
+                        <br/>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Sl no.</th>
+                                    <th>Date</th>
+                                    <th>Order</th>
+                                    <th>Box Type</th>
+                                    <th>Qty</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="sl_no" t-value="1"/>
+                                <t t-set="box_total" t-value="0"/>
+                                <tr t-foreach='box_log' t-as='line'>
+                                    <td>
+                                        <t t-esc="sl_no"/>
+                                        <t t-set="sl_no" t-value="sl_no+1"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="line['date']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc='line["order"]'/>
+                                    </td>
+                                    <td>
+                                        <t t-esc='line["product"]'/>
+                                    </td>
+                                    <td>
+                                        <t t-if="line['qty']&lt;0">
+                                            <t t-esc='(-1*line["qty"])'/>
+                                        </t>
+                                        <t t-if="line['qty']&gt;=0">
+                                            <t t-esc='line["qty"]'/>
+                                        </t>
+                                        <t t-if="line['status'] == 'Return'">
+                                            <t t-set="box_total" t-value="box_total-line['qty']"/>
+                                        </t>
+                                        <t t-if="line['status'] == 'Sale' or line['status'] == 'Purchase'">
+                                            <t t-set="box_total" t-value="box_total+line['qty']"/>
+                                        </t>
+
+                                    </td>
+                                    <td>
+                                        <t t-esc='line["status"]'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        Total Box
+                                    </td>
+                                    <td colspan="2">
+                                        <t t-esc='box_total'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <h5>Onhand Box</h5>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Sl No.</th>
+                                    <th>Box Type</th>
+                                    <th>Tray OB</th>
+                                    <th>
+                                        <t t-if="report_type == 'sale'">
+                                            Sale
+                                        </t>
+                                        <t t-if="report_type == 'purchase'">
+                                         Purchase
+                                        </t>
+                                    </th>
+                                    <th>Total</th>
+                                    <th>Return</th>
+                                    <th>Net Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="sl_no" t-value="1"/>
+                                <t t-set="total_onhand_box" t-value="0"/>
+                                <tr t-foreach='history' t-as='box'>
+                                    <td>
+                                        <t t-esc="sl_no"/>
+                                        <t t-set="sl_no" t-value="sl_no+1"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="box['product']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="box['tray_ob']"
+                                           t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="report_type == 'sale'">
+                                            <t t-esc="box['sale']"
+                                           t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                        </t>
+                                        <t t-if="report_type == 'purchase'">
+                                            <t t-esc="box['purchase']"
+                                            t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-esc="box['total']"
+                                           t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="box['return']"
+                                           t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="box['net_balance']"
+                                           t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                        <t t-set="total_onhand_box" t-value="total_onhand_box+box['net_balance']"/>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="6">
+                                        Total Box
+                                    </td>
+                                    <td>
+                                        <t t-esc='total_onhand_box' t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

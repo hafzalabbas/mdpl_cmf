@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+
+
+    <record id="debt_limit_view_partner_form_debt" model="ir.ui.view">
+    <field name="name">res.partner.form.debt</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="point_of_sale.view_partner_property_form"/>
+    <field name="arch" type="xml">
+       <xpath expr="//field[@name='barcode']" position="after">
+                <field name="debt_limit"/>
+            </xpath>
+    </field>
+    </record>
+  </data>
+</odoo>

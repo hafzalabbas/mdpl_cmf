@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <data>
+
+        <record forcecreate="True" id="cron_create_pos_auto_order" model="ir.cron">
+            <field name="name">Create Auto Invoice Closing</field>
+            <field name="model_id" ref="point_of_sale.model_pos_order"/>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+             <field name="state">code</field>
+            <field name="code">model.auto_pos_order_invoice()</field>
+        </record>
+    </data>
+</odoo>

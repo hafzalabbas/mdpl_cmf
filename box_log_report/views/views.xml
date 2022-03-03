@@ -1,0 +1,71 @@
+<odoo>
+    <data>
+        <record id="box_log_report_wizard_view" model="ir.ui.view">
+            <field name="name">Box Log Report Wizard</field>
+            <field name="model">box.log.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Report Options">
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="report_type" widget="radio"/>
+                            <field name="date_from" attrs="{'required':[('type', '=', 'range')], 'invisible':[('type', '=', 'all')]}" />
+                        </group>
+                        <group>
+                            <field name="type" widget="radio"/>
+                            <field name="date_to" attrs="{'required':[('type', '=', 'range')], 'invisible':[('type', '=', 'all')]}"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+
+                    <footer>
+<!--                        <button name="export_xls" type="object" default_focus="1"-->
+<!--                                string="Excel Print" class="oe_highlight"/>-->
+<!--                        or-->
+                        <button name="print_report" string="Print" type="object"
+                                class="oe_highlight"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="box_log_report_wizard_action" model="ir.actions.act_window">
+            <field name="name">Box Log Report</field>
+            <field name="res_model">box.log.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="box_log_report_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="box_log_report_wizard_menu" name="Box Log Report"
+                  parent="point_of_sale.menu_point_rep" action="box_log_report_wizard_action"/>
+
+
+<!--        <report-->
+<!--                id="action_statement_of_account_xls"-->
+<!--                model="account.move.line"-->
+<!--                string="Statement of Account XLSX"-->
+<!--                report_type="xlsx"-->
+<!--                name="statement_of_account_report.account_statement_xls"-->
+<!--                file="statement_of_account_report.account_statement_xls"-->
+
+<!--        />-->
+        <record id="box_log_report_pdf" model="ir.actions.report">
+            <field name="name">Box Log Report</field>
+            <field name="model">report.box_log_report.report_box_log_pdf</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">box_log_report.report_box_log_pdf</field>
+        </record>
+<!--        <report-->
+<!--                id="action_statement_of_account_pdf"-->
+<!--                model="account.move.line"-->
+<!--                string="Statement of Account"-->
+<!--                report_type="qweb-pdf"-->
+<!--                name="statement_of_account_report.report_account_statement_pdf"-->
+<!--                file="statement_of_account_report.report_account_statement_pdf"-->
+<!--                menu="False"-->
+<!--        />-->
+    </data>
+</odoo>
